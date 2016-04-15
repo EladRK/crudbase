@@ -9,7 +9,7 @@ var colors = require('colors/safe');
 app.use(bodyParser.json());
 
 
-var db = require('./lib/db')
+var db = require('./lib/db');
 var createCrudRoutes = require('./lib/crud-routes');
 
 var crudRoutes = createCrudRoutes(db);
