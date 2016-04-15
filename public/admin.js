@@ -53,21 +53,16 @@ myApp.directive('umbPublish', publishDirective);
 
 myApp.config(['NgAdminConfigurationProvider', function (nga) {
 
-  var businessEntitiesApi = 'http://localhost:6100/api/v1/';
-  var vertigonApi = 'http://localhost:6100/api/v1/';
-  var articleApi = 'http://localhost:6100/api/v1/';
+  var baseApi = 'http://localhost:6100/api/v1/';
 
 
-  var admin = nga.application('Umbrela Admin').baseApiUrl(businessEntitiesApi);
+  var admin = nga.application('Umbrela Admin').baseApiUrl(baseApi);
 
-  var legacyProductUri = "http://admin.qa02.corp.naturalint.com/api/bizms/v1/resources/"
-
+  //var legacyProductUri = "http://admin.qa02.corp.naturalint.com/api/bizms/v1/resources/"
   //var legacyProduct = nga.entity('products').baseApiUrl(legacyProductUri).identifier(nga.field('id'));
 
-  var legacyProduct = nga.entity('products2').url(function (entityName, viewType, identifierValue, identifierName) {
-    console.log(entityName, viewType, identifierValue, identifierName);
+  var legacyProduct = nga.entity('legacy_product').url(function (entityName, viewType, identifierValue, identifierName) {
     return "http://admin.qa02.corp.naturalint.com/api/bizms/v1/resources/products";
-    //return '/comments/' + entityName + '_' + viewType + '?' + identifierName + '=' + identifierValue; // Can be absolute or relative
   });
 
   legacyProduct.listView().fields([
@@ -78,16 +73,16 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
 
   //admin.addEntity(legacyProduct);
 
-  var category = nga.entity('category').baseApiUrl(vertigonApi).identifier(nga.field('_id'));
-  var segment = nga.entity('segment').baseApiUrl(vertigonApi).identifier(nga.field('_id'));
-  var vertical = nga.entity('vertical').baseApiUrl(vertigonApi).identifier(nga.field('_id'));
+  var category = nga.entity('category').identifier(nga.field('_id'));
+  var segment = nga.entity('segment').identifier(nga.field('_id'));
+  var vertical = nga.entity('vertical').identifier(nga.field('_id'));
 
-  var link = nga.entity('link').baseApiUrl(businessEntitiesApi).identifier(nga.field('_id'));
-  var partner = nga.entity('partner').baseApiUrl(businessEntitiesApi).identifier(nga.field('_id'));
-  var product = nga.entity('product').baseApiUrl(businessEntitiesApi).identifier(nga.field('_id'));
-  var site = nga.entity('site').baseApiUrl(businessEntitiesApi).identifier(nga.field('_id'));
+  var link = nga.entity('link').identifier(nga.field('_id'));
+  var partner = nga.entity('partner').identifier(nga.field('_id'));
+  var product = nga.entity('product').identifier(nga.field('_id'));
+  var site = nga.entity('site').identifier(nga.field('_id'));
 
-  var article = nga.entity('article').baseApiUrl(articleApi).identifier(nga.field('_id'));
+  var article = nga.entity('article').identifier(nga.field('_id'));
 
   category.listView().fields([
     nga.field('name').isDetailLink(true),
