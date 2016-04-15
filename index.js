@@ -22,7 +22,6 @@ app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/c
 app.use('/node_modules/ng-admin/build/', express.static(__dirname + '/node_modules/ng-admin/build/'));
 
 
-mongoose.connect('mongodb://localhost/umb-simple');
 
 var port = 6100;
 app.listen(port, function () {
