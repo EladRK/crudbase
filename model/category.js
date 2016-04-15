@@ -1,8 +1,16 @@
+'use strict';
 
+const mongoose = require('mongoose');
 
-module.exports = {
-    productId: Number,
-    name: String,
-    logoPath: String,
-    bottomLine: String
+const CategorySchema = {
+  siteId: Number,
+  displayName: {type: String, required: true},
+  name: String,
+  parentId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Categories'
+  },
+  order: Number
 };
+
+module.exports = CategorySchema;

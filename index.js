@@ -8,44 +8,34 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var colors = require('colors/safe');
 
-var entities = {};
 var db = {};
 
 var modelPath = require("path").join(__dirname, "./model");
 var fs = require("fs");
 
-console.log("\n\n");
-console.log(colors.red("Reading Model:"));
+var modelFilenames = fs.readdirSync(modelPath);
 
-fs.readdirSync(modelPath).forEach(function(file) {
+var entityNames = modelFilenames.map(filename => filename.slice(0,-3));
 
-    var entityName = file.slice(0, -3);
-    if (entityName === 'index') return;
+entityNames.forEach(entityName => {
 
-    entities[entityName] = require(`./model/${entityName}`);
+    var entity = require(`./model/${entityName}`);
 
-    var entitySchema = new Schema(entities[entityName]);
+    var entitySchema = new Schema(entity);
     db[entityName] =  mongoose.model(entityName, entitySchema);
 
-    console.log(colors.blue(entityName));
-
-    for(propertyName in entities[entityName]) {
-        console.log(" + " + propertyName);
-    }
-
-    console.log("\n");
 });
 
 
 console.log("\n\n");
 console.log(colors.red("Generating CRUD API:"));
 
-var apiPath = 'api/v1';
+var apiPath = 'api/v1/';
 
 for (entityName in db) {
     console.log(colors.blue(entityName));
 
-    router.get(entityName + '/', function (req, res, next) {
+    router.get(apiPath + entityName + '/', function (req, res, next) {
 
         var filter = {};
         if (req.query._filters) {
@@ -57,18 +47,18 @@ for (entityName in db) {
 
         });
     });
-    console.log (`GET: \t/${apiPath}/${entityName}/`);
+    console.log (`GET: \t/${apiPath}${entityName}/`);
 
-    router.get(entityName + '/:id', function (req, res, next) {
+    router.get(apiPath + entityName + '/:id', function (req, res, next) {
 
         db[entityName].findById(req.params.id).then(result => {
             res.json(result);
 
         });
     });
-    console.log (`GET: \t/${apiPath}/${entityName}/:id`);
+    console.log (`GET: \t/${apiPath}${entityName}/:id`);
 
-    router.post(entityName + '/', function (req, res, next) {
+    router.post(apiPath + entityName + '/', function (req, res, next) {
 
         var data = req.body;
 
@@ -80,18 +70,18 @@ for (entityName in db) {
 
 
     });
-    console.log (`POST: \t/${apiPath}/${entityName}/`);
+    console.log (`POST: \t/${apiPath}${entityName}/`);
 
-    router.delete(entityName + '/:id', function (req, res, next) {
+    router.delete(apiPath + entityName + '/:id', function (req, res, next) {
 
         db[entityName].remove({"_id": req.params.id}).then(result => {
             res.json(result);
 
         });
     });
-    console.log (`DELETE: \t/${apiPath}/${entityName}/:id`);
+    console.log (`DELETE: \t/${apiPath}${entityName}/:id`);
 
-    router.put(entityName + '/:id', function (req, res, next) {
+    router.put(apiPath + entityName + '/:id', function (req, res, next) {
 
 
         db[entityName].findOneAndUpdate({"_id": req.params.id}, req.body).then(result => {
@@ -100,13 +90,20 @@ for (entityName in db) {
         });
 
     });
-    console.log (`PUT: \t/${apiPath}/${entityName}/:id`);
+    console.log (`PUT: \t/${apiPath}${entityName}/:id`);
 
-    console.log("\n\n")
+    console.log("\n")
 }
 
+console.log(colors.red(`Total ${entityNames.length} entities.\n`));
 
-app.use('/api/v1', router);
+app.use('/', router);
+
+mongoose.connect('mongodb://localhost/umb-simple');
+
+app.get('/getInvoice/', function(req, res) {
+    res.json({"ok": "ok!"});
+});
 
 var port = 6100;
 app.listen(port, function () {
