@@ -1,12 +1,13 @@
 {
   "name": "umb-simple",
   "version": "1.0.0",
-  "description": "",
+  "description": "umbrela mvp",
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.15.0",
     "colors": "^1.1.2",
     "express": "^4.13.4",
+    "historical": "^1.0.0",
     "mongoose": "^4.4.12",
     "ng-admin": "^0.9.1",
     "underscore": "^1.8.3"
