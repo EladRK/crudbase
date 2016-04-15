@@ -1,5 +1,4 @@
 "use strict";
-
 var express = require('express');
 var app = express();
 var _ = require('underscore');
@@ -8,15 +7,17 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var colors = require('colors/safe');
+var fs = require("fs");
+
+
 
 var db = {};
 
 var modelPath = require("path").join(__dirname, "./model");
-var fs = require("fs");
 
-var modelFilenames = fs.readdirSync(modelPath);
+var modelFileNames = fs.readdirSync(modelPath);
 
-var entityNames = modelFilenames.map(filename => filename.slice(0,-3));
+var entityNames = modelFileNames.map(filename => filename.slice(0,-3));
 
 entityNames.forEach(entityName => {
 
@@ -31,9 +32,13 @@ entityNames.forEach(entityName => {
 console.log("\n\n");
 console.log(colors.red("Generating CRUD API:"));
 
+app.use(bodyParser.json());
+
 var apiPath = '/api/v1/';
 
 for (var entityName in db) {
+    if (!db.hasOwnProperty(entityName)) continue;
+
     console.log(colors.blue(entityName));
     console.log (`GET: \t/${apiPath}${entityName}/`);
     console.log (`GET: \t/${apiPath}${entityName}/:id`);
@@ -41,53 +46,53 @@ for (var entityName in db) {
     console.log (`DELETE: \t/${apiPath}${entityName}/:id`);
     console.log (`PUT: \t/${apiPath}${entityName}/:id`);
 
-    router.get(apiPath + entityName + '/', function (req, res, next) {
+    var baseUrl = apiPath + entityName + "/";
 
-        var filter = {};
-        if (req.query._filters) {
-            filter = JSON.parse(req.query._filters);
-        }
 
-        db[entityName].find(filter).then(result => {
-            res.json(result);
+    (function(entityName) {
+        router.get(baseUrl, function (req, res) {
+            var filter = {};
+            if (req.query._filters) {
+                filter = JSON.parse(req.query._filters);
+            }
+
+            db[entityName].find(filter).then(result => {
+                res.json(result);
+
+            });
+        });
+        router.get(baseUrl + ':id', function (req, res) {
+            db[entityName].findById(req.params.id).then(result => {
+                res.json(result);
+
+            });
+        });
+        router.post(baseUrl, function (req, res) {
+            var data = req.body;
+
+            var newEntity = new db[entityName](data);
+            newEntity.save((result) => {
+                res.json(result);
+            });
+
 
         });
-    });
-    router.get(apiPath + entityName + '/:id', function (req, res, next) {
+        router.delete(baseUrl, function (req, res) {
 
-        db[entityName].findById(req.params.id).then(result => {
-            res.json(result);
+            db[entityName].remove({"_id": req.params.id}).then(result => {
+                res.json(result);
+
+            });
+        });
+        router.put(baseUrl + ':id', function (req, res) {
+
+            db[entityName].findOneAndUpdate({"_id": req.params.id}, req.body).then(result => {
+                res.json(result);
+
+            });
 
         });
-    });
-    router.post(apiPath + entityName + '/', function (req, res, next) {
-
-        var data = req.body;
-
-
-        var entity = new db[entityName](data);
-        entity.save((result) => {
-            res.json(result);
-        });
-
-
-    });
-    router.delete(apiPath + entityName + '/:id', function (req, res, next) {
-
-        db[entityName].remove({"_id": req.params.id}).then(result => {
-            res.json(result);
-
-        });
-    });
-    router.put(apiPath + entityName + '/:id', function (req, res, next) {
-
-
-        db[entityName].findOneAndUpdate({"_id": req.params.id}, req.body).then(result => {
-            res.json(result);
-
-        });
-
-    });
+    })(entityName);
 
     console.log("\n")
 }
