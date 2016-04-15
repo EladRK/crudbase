@@ -1,3 +1,4 @@
+"use strict";
 
 var express = require('express');
 var app = express();
@@ -30,10 +31,15 @@ entityNames.forEach(entityName => {
 console.log("\n\n");
 console.log(colors.red("Generating CRUD API:"));
 
-var apiPath = 'api/v1/';
+var apiPath = '/api/v1/';
 
-for (entityName in db) {
+for (var entityName in db) {
     console.log(colors.blue(entityName));
+    console.log (`GET: \t/${apiPath}${entityName}/`);
+    console.log (`GET: \t/${apiPath}${entityName}/:id`);
+    console.log (`POST: \t/${apiPath}${entityName}/`);
+    console.log (`DELETE: \t/${apiPath}${entityName}/:id`);
+    console.log (`PUT: \t/${apiPath}${entityName}/:id`);
 
     router.get(apiPath + entityName + '/', function (req, res, next) {
 
@@ -47,8 +53,6 @@ for (entityName in db) {
 
         });
     });
-    console.log (`GET: \t/${apiPath}${entityName}/`);
-
     router.get(apiPath + entityName + '/:id', function (req, res, next) {
 
         db[entityName].findById(req.params.id).then(result => {
@@ -56,8 +60,6 @@ for (entityName in db) {
 
         });
     });
-    console.log (`GET: \t/${apiPath}${entityName}/:id`);
-
     router.post(apiPath + entityName + '/', function (req, res, next) {
 
         var data = req.body;
@@ -70,8 +72,6 @@ for (entityName in db) {
 
 
     });
-    console.log (`POST: \t/${apiPath}${entityName}/`);
-
     router.delete(apiPath + entityName + '/:id', function (req, res, next) {
 
         db[entityName].remove({"_id": req.params.id}).then(result => {
@@ -79,8 +79,6 @@ for (entityName in db) {
 
         });
     });
-    console.log (`DELETE: \t/${apiPath}${entityName}/:id`);
-
     router.put(apiPath + entityName + '/:id', function (req, res, next) {
 
 
@@ -90,7 +88,6 @@ for (entityName in db) {
         });
 
     });
-    console.log (`PUT: \t/${apiPath}${entityName}/:id`);
 
     console.log("\n")
 }
@@ -99,11 +96,13 @@ console.log(colors.red(`Total ${entityNames.length} entities.\n`));
 
 app.use('/', router);
 
-mongoose.connect('mongodb://localhost/umb-simple');
+app.use(express.static('public'));
+app.use('/angular', express.static(__dirname + '/node_modules/angular/'));
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/css/'));
+app.use('/node_modules/ng-admin/build/', express.static(__dirname + '/node_modules/ng-admin/build/'));
 
-app.get('/getInvoice/', function(req, res) {
-    res.json({"ok": "ok!"});
-});
+
+mongoose.connect('mongodb://localhost/umb-simple');
 
 var port = 6100;
 app.listen(port, function () {
