@@ -9,6 +9,7 @@
     "express": "^4.13.4",
     "historical": "^1.0.0",
     "mongoose": "^4.4.12",
+    "mongoose-history": "^0.4.2",
     "ng-admin": "^0.9.1",
     "underscore": "^1.8.3"
   },
