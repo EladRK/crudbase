@@ -7,7 +7,7 @@ const options = {
 
 
 function App(){
-    let app;
+    var app;
 }
 
 App.prototype.run = function run() {
@@ -30,19 +30,18 @@ App.prototype.run = function run() {
     this.app.use('/node_modules/ng-admin/build/', express.static(__dirname + '/node_modules/ng-admin/build/'));
 
 
-    console.log('OKOKOKOK1');
     this.app.listen(options.port, function () {
         console.log('Environment: ' + options.env);
         console.log('Running on port: ' + options.port);
-        console.log('OKOKOKOK3');
 
     });
-    console.log('OKOKOKOK2');
 
 };
 App.prototype.stop = () => {
     this.app.stop();
 };
 
+var umbBackOffice = new App();
+umbBackOffice.run();
 
-module.exports = new App();
+module.exports = umbBackOffice;
