@@ -7,7 +7,7 @@ var mongooseHistory = require('mongoose-history');
 
 var db = {};
 
-var modelPath = require("path").join(__dirname, "../model");
+var modelPath = require("path").join(__dirname, "./schema");
 
 var modelFileNames = fs.readdirSync(modelPath);
 
@@ -15,7 +15,7 @@ var entityNames = modelFileNames.map(filename => filename.slice(0, -3));
 
 entityNames.forEach(entityName => {
 
-    var model = require(`../model/${entityName}`);
+    var model = require(`./schema/${entityName}`);
 
     var entitySchema = new Schema(model);
 

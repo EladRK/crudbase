@@ -10,13 +10,18 @@ describe('umb-backoffice', () => {
 
     describe('app', () => {
         describe('e2e - health check', () => {
-            it('should start', () => {
-                var app = require('../app');
+            let app = null;
+            it('should bootstrap', () => {
+                app = require('../app');
+                app.bootstrap();
+            });
+            it('should run', () => {
                 app.run();
             });
-            it('should listen');
             it('should answer CRUD e2e');
-            it('should stop');
+            it('should stop', () => {
+                app.stop();
+            });
         });
         describe('test environment', () => {
             it('should pass a dummy true-test', () => {
