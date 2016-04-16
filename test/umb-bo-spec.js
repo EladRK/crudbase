@@ -8,7 +8,13 @@ const expect = chai.expect;
 
 describe('umb-backoffice', () => {
 
-    describe('general app requirements', () => {
+    describe('app', () => {
+        describe('e2e - health check', () => {
+            it('should start');
+            it('should listen');
+            it('should answer CRUD e2e');
+            it('should stop');
+        });
         describe('test environment', () => {
             it('should pass a dummy true-test', () => {
                 expect(1).to.eql(1);
@@ -17,7 +23,7 @@ describe('umb-backoffice', () => {
         describe('coding standards', () => {
             it('all code files should be less than 100 LOC');
             it('all code files should be require-able without side implications');
-        })
+        });
     });
 
     describe('model', () => {
