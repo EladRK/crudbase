@@ -29,14 +29,15 @@ App.prototype.run = function run() {
     this.app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/css/'));
     this.app.use('/node_modules/ng-admin/build/', express.static(__dirname + '/node_modules/ng-admin/build/'));
 
-    this.app.listen(options.port, () => {
+
+    console.log('OKOKOKOK1');
+    this.app.listen(options.port, function () {
         console.log('Environment: ' + options.env);
         console.log('Running on port: ' + options.port);
-        console.log('OKOKOKOK');
-        console.log('OKOKOKOK');
+        console.log('OKOKOKOK3');
 
     });
-    console.log('OKOKOKOK');
+    console.log('OKOKOKOK2');
 
 };
 App.prototype.stop = () => {
