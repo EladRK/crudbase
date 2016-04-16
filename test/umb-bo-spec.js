@@ -34,12 +34,10 @@ describe('umb-backoffice', () => {
 
     describe('entity-loader', () => {
         it('should load all entities');
-        it('should make sure to initialize only once', () => {
-            expect(false).to.be.true;
-        });
+        it('should make sure to initialize only once');
     });
 
-    describe('entity-crud-routes-creator', () => {
+    describe('schema-to-routes creator', () => {
         it('should expose routes for all entities');
     });
 
