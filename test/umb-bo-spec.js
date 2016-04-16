@@ -9,14 +9,14 @@ const expect = chai.expect;
 describe('umb-backoffice', () => {
 
     describe('general app requirements', () => {
-        describe('should have working test environment', () => {
+        describe('test environment', () => {
             it('should pass a dummy true-test', () => {
                 expect(1).to.eql(1);
             });
         });
-        describe('index.js bootstrapper', () => {
-            it('should be small & simple');
-            it('it should bootstrap application');
+        describe('coding standards', () => {
+            it('all code files should be less than 100 LOC');
+            it('all code files should be require-able without side implications');
         })
     });
 
@@ -35,7 +35,11 @@ describe('umb-backoffice', () => {
     describe('entity-loader', () => {
         it('should load all entities');
         it('should make sure to initialize only once');
+        it('should not take too long');
+        it('should work with dependency-container')
     });
+
+    describe('dependency-container', () => {});
 
     describe('schema-to-routes creator', () => {
         it('should expose routes for all entities');
