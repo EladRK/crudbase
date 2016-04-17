@@ -4,24 +4,25 @@ var Estimator = function() {
 }
 
 Estimator.prototype.addHours = (n) => {
-    this.estimated.hours += n;
+    //this.estimated.hours += n;
 }
 
 Estimator.prototype.addDays = (n) => {
-    this.estimated.days += n;
+    //this.estimated.days += n;
 }
 
 Estimator.prototype.getTotal = () => {
-    return this.estimated;
+    //return this.estimated;
+    return 0;
 }
 
 
-
 describe('sprint APR 17', () => {
+    // total 2 days
     describe('UMB 606 - Product List', () => {
         var umb606 = new Estimator();
         
-        umb606.addHours(2).bind(umb606);
+        umb606.addHours(2);
         describe('Model', () => {
             it('ProductList Model', () => {
                 var model = {
@@ -44,13 +45,13 @@ describe('sprint APR 17', () => {
             });
         });
 
-        umb606.addDays(1).bind(umb606);
+        umb606.addDays(1);
         describe('CRUDP', () => {
             it('should have CRUD BO');
             it('should have Publish')
         });
 
-        umb606.addDays(0.5).bind(umb606);
+        umb606.addDays(0.5);
         describe('RT', () => {
             it('should connect to Omri\'s RT component'); // Omri
         });
@@ -58,11 +59,12 @@ describe('sprint APR 17', () => {
         console.log('UMB 606 - Product List', umb606.getTotal());
     });    
 
+// total 3 days =>
     describe('UMB 121 - Features & Product_Features', () => {
         var umb121 = new Estimator();
         
         describe('BO', () => {
-            umb121.addHours(2).bind(umb121);
+            umb121.addHours(2);
             describe('Features Model', () => {
                 it('should be ', () => {
                     var model = {
@@ -87,12 +89,12 @@ describe('sprint APR 17', () => {
                 });
             });
             
-            umb121.addHours(5).bind(umb121);
+            umb121.addHours(5);
             describe('CRUD', () => {
                 it('should have CRUD');
             });
 
-            umb121.addHours(5).bind(umb121);
+            umb121.addHours(5);
             describe('Publish', () => {
                 it('should publish only with relevant tree-model', () => {
                     var publish_tree = {
@@ -107,12 +109,12 @@ describe('sprint APR 17', () => {
             });
         });
         
-        umb121.addHours(2).bind(umb121);
+        umb121.addHours(2);
         describe('Admin', () => {
             it('should have admin');
         });
         
-        umb121.addDays(3).bind(umb121);
+        umb121.addDays(3);
         describe('RT', () => {
             it('should have RT component');
         });
@@ -120,13 +122,14 @@ describe('sprint APR 17', () => {
         console.log('UMB 121 - Product_Features', umb121.getTotal());
     });
 
+// total 1 day
     describe('UMB XXX - Refactor Admin', () => {
         var umb_xxx_admin = new Estimator();
-        umb_xxx_admin.addDays(1).bind(umb_xxx_admin);
+        umb_xxx_admin.addDays(1);
         describe('Tests', () => {
             it('should have all relevant tests')
         });
-        umb_xxx_admin.addHours(1).bind(umb_xxx_admin);
+        umb_xxx_admin.addHours(1);
         describe('Folder Structure', () => {
             it('should have easy to use folder structure');
         });
