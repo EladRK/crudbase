@@ -66,15 +66,12 @@ describe('umb-backoffice', () => {
 
 
     describe('features', () => {
-         describe('feature list');
-         describe('file upload');
-         describe('product list');
+         describe('feature list', () => {});
+         describe('file upload', () => {});
+         describe('product list', () => {});
          describe('wysiwyg', () => {
-            describe('link button/popup', () => {
-            });
-            
-            describe('markdown language', () => {
-            });
+            describe('link button/popup', () => {});
+            describe('markdown language', () => {});
         });
     })
 });

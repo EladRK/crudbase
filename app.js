@@ -13,10 +13,19 @@ function App(){
 App.prototype.run = function run() {
 
     var express = require('express');
+    var colors = require('colors');
     this.app = express();
 
     var bodyParser = require('body-parser');
     this.app.use(bodyParser.json());
+
+    var logger = function(req, res, next) {
+        console.log(colors.blue(new Date().toLocaleString()) + " : " + colors.green(req.method) + " : " + req.url);
+
+        next(); 
+    }
+
+    this.app.use(logger);
 
     var entityLoader = require('./model/entity-loader');
     var schemaToRoutes = require('./lib/schema-to-routes');
@@ -29,21 +38,15 @@ App.prototype.run = function run() {
     this.app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/css/'));
     this.app.use('/node_modules/ng-admin/build/', express.static(__dirname + '/node_modules/ng-admin/build/'));
 
-        var logger = function(req, res, next) {
-            console.log("GOT REQUEST !");
-            next(); // Passing the request to the next handler in the stack.
-        }
-
-        app.configure(function(){
-            app.use(logger); // Here you add your logger to the stack.
-            app.use(app.router); // The Express routes handler.
-        });
 
 
     this.app.listen(options.port, function () {
-        console.log('Environment: ' + options.env);
-        console.log('Running on port: ' + options.port);
-
+        console.log(
+            colors.red(new Date().toLocaleString()) + " : " +
+            colors.cyan('Environment: ' + options.env) + " : " + 
+            colors.cyan('Running on port: ' + options.port)
+        );
+        
     });
 
 };
