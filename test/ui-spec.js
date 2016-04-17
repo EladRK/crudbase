@@ -1,5 +1,10 @@
 describe('admin ui', () => {
     it('should add a todo', function() {
+        if (!browser) {
+            console.warn('(!) Protractor not found. Skipping UI tests.');
+            return;
+        }
+        
         browser.get('http://localhost:6100/admin.html');
 
         element(by.model('todoList.todoText')).sendKeys('write first protractor test');
