@@ -29,6 +29,16 @@ App.prototype.run = function run() {
     this.app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/css/'));
     this.app.use('/node_modules/ng-admin/build/', express.static(__dirname + '/node_modules/ng-admin/build/'));
 
+        var logger = function(req, res, next) {
+            console.log("GOT REQUEST !");
+            next(); // Passing the request to the next handler in the stack.
+        }
+
+        app.configure(function(){
+            app.use(logger); // Here you add your logger to the stack.
+            app.use(app.router); // The Express routes handler.
+        });
+
 
     this.app.listen(options.port, function () {
         console.log('Environment: ' + options.env);

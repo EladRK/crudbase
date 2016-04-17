@@ -30,10 +30,6 @@ describe('umb-backoffice', () => {
                 expect(app1).to.be.eql(app2);
             });
             it('requiring any file should not have side effects');
-            it('should have protractor', () => {
-                protractor   
-            });
-            
          });
     });
 
@@ -67,4 +63,18 @@ describe('umb-backoffice', () => {
         it('should expose Publish behavior');
     });
 
+
+
+    describe('features', () => {
+         describe('feature list');
+         describe('file upload');
+         describe('product list');
+         describe('wysiwyg', () => {
+            describe('link button/popup', () => {
+            });
+            
+            describe('markdown language', () => {
+            });
+        });
+    })
 });
