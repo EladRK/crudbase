@@ -18,7 +18,7 @@
     "mocha": "^2.4.5"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha test/umb-bo-spec.js"
   },
   "repository": {
     "type": "git",
