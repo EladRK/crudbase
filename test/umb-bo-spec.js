@@ -10,20 +10,21 @@ describe('umb-backoffice', () => {
 
     describe('app', () => {
         describe('e2e - health check', () => {
+            it('should pass a dummy true-test', () => {
+                expect(1).to.eql(1);
+            });
             it('should run', () => {
                 let app = require('../app');
-                app.run();
+                app.run.bind(app);
             });
             it('should stop', () => {
                 let app = require('../app');
                 app.run.bind(app);
                 app.stop.bind(app);
             });
+            it('should accept REST');
         });
         describe('test environment', () => {
-            it('should pass a dummy true-test', () => {
-                expect(1).to.eql(1);
-            });
         });
         describe('coding standards', () => {
             it('all code files should be less than 100 LOC');
