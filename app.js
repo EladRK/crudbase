@@ -7,7 +7,7 @@ const options = {
 
 
 function App(){
-    var app;
+    let app;
 }
 
 App.prototype.run = function run() {
