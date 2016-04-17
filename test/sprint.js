@@ -1,12 +1,27 @@
 
-var estimated = {
-    hours :0, days:0
-};
+var Estimator = function() {
+    this.estimated = { hours :0, days:0 }; 
+}
+
+Estimator.prototype.addHours = (n) => {
+    this.estimated.hours += n;
+}
+
+Estimator.prototype.addDays = (n) => {
+    this.estimated.days += n;
+}
+
+Estimator.prototype.getTotal = () => {
+    return this.estimated;
+}
+
+
 
 describe('sprint APR 17', () => {
     describe('UMB 606 - Product List', () => {
+        var umb606 = new Estimator();
         
-        estimated.hours += 2;
+        umb606.addHours(2).bind(umb606);
         describe('Model', () => {
             it('ProductList Model', () => {
                 var model = {
@@ -29,20 +44,25 @@ describe('sprint APR 17', () => {
             });
         });
 
-        estimated.hours += 5;
+        umb606.addDays(1).bind(umb606);
         describe('CRUDP', () => {
-            it('should have CRUDP BO');
+            it('should have CRUD BO');
+            it('should have Publish')
         });
 
-        estimated.days += 3;
+        umb606.addDays(0.5).bind(umb606);
         describe('RT', () => {
-            it('should have RT component'); // Omri
+            it('should connect to Omri\'s RT component'); // Omri
         });
+        
+        console.log('UMB 606 - Product List', umb606.getTotal());
     });    
 
     describe('UMB 121 - Features & Product_Features', () => {
+        var umb121 = new Estimator();
+        
         describe('BO', () => {
-            estimated.hours += 2;
+            umb121.addHours(2).bind(umb121);
             describe('Features Model', () => {
                 it('should be ', () => {
                     var model = {
@@ -67,18 +87,12 @@ describe('sprint APR 17', () => {
                 });
             });
             
-          estimated.hours += 5;
+            umb121.addHours(5).bind(umb121);
             describe('CRUD', () => {
                 it('should have CRUD');
             });
-            
-            estimated.days += 1;
-            describe('Variants', () => {
-                it('should support Variants');
-                // Gilad says it might not have to support variants
-            });
 
-            estimated.hours += 5;
+            umb121.addHours(5).bind(umb121);
             describe('Publish', () => {
                 it('should publish only with relevant tree-model', () => {
                     var publish_tree = {
@@ -93,27 +107,31 @@ describe('sprint APR 17', () => {
             });
         });
         
-        estimated.hours += 2;
+        umb121.addHours(2).bind(umb121);
         describe('Admin', () => {
             it('should have admin');
         });
         
-        estimated.days += 1;
+        umb121.addDays(3).bind(umb121);
         describe('RT', () => {
             it('should have RT component');
         });
         
+        console.log('UMB 121 - Product_Features', umb121.getTotal());
     });
 
-    estimated.hours += 2;
     describe('UMB XXX - Refactor Admin', () => {
+        var umb_xxx_admin = new Estimator();
+        umb_xxx_admin.addDays(1).bind(umb_xxx_admin);
         describe('Tests', () => {
             it('should have all relevant tests')
         });
+        umb_xxx_admin.addHours(1).bind(umb_xxx_admin);
         describe('Folder Structure', () => {
             it('should have easy to use folder structure');
         });
+        
+        console.log('UMB XXX - Admin', umb_xxx_admin.getTotal());
     });
 });
 
-console.log('TOTAL ESTIMATED', estimated);
