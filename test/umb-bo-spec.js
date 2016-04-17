@@ -23,12 +23,13 @@ describe('umb-backoffice', () => {
                 app.stop.bind(app);
             });
             it('should accept REST');
-        });
-        describe('test environment', () => {
-        });
-        describe('coding standards', () => {
-            it('all code files should be less than 100 LOC');
-            it('all code files should be require-able without side implications');
+            it('requiring app.js should not have side effects', () => {
+                let app1 = require('../app');
+                let app2 = require('../app');
+
+                expect(app1).to.be.eql(app2);
+            });
+            it('requiring any file should not have side effects');
         });
     });
 
