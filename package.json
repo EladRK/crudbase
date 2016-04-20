@@ -18,9 +18,7 @@
     "mocha": "^2.4.5"
   },
   "scripts": {
-    "test": "mocha test/spec.js",
-    "test-ui: "protractor test/ui-spec.js",
-    "run: "nodemon app.js"
+    "test": "mocha test/spec.js"
   },
   "repository": {
     "type": "git",
