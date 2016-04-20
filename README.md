@@ -12,4 +12,5 @@ Crud base
 
 ### test
 spec: `mocha test/spec.js`
+
 ui-spec: `protractor test/spec.js`
