@@ -56,7 +56,7 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
   var baseApi = 'http://localhost:6100/api/v1/';
 
 
-  var admin = nga.application('Umbrela Admin').baseApiUrl(baseApi);
+  var admin = nga.application('CRUD base Admin').baseApiUrl(baseApi);
 
   //var legacyProductUri = "http://admin.qa02.corp.naturalint.com/api/bizms/v1/resources/"
   //var legacyProduct = nga.entity('products').baseApiUrl(legacyProductUri).identifier(nga.field('id'));
