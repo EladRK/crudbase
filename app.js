@@ -27,7 +27,7 @@ App.prototype.run = function run() {
 
     this.app.use(logger);
 
-    var entityLoader = require('./model/entity-loader');
+    var entityLoader = require('./lib/entity-loader');
     var schemaToRoutes = require('./lib/schema-to-routes');
     this.app.use('/', schemaToRoutes(entityLoader));
 
