@@ -8,9 +8,13 @@ const options = {
 
 function App(){
     let app;
+    let db = 'still nothing';
+    let routes = 'still nothing';
 }
 
-App.prototype.run = function run() {
+App.prototype.run = function run(modelNameArray) {
+
+    console.log(modelNameArray);
 
     var express = require('express');
     var colors = require('colors');
@@ -28,9 +32,12 @@ App.prototype.run = function run() {
     this.app.use(logger);
 
     var entityLoader = require('./lib/entity-loader');
-    var schemaToRoutes = require('./lib/schema-to-routes');
-    this.app.use('/', schemaToRoutes(entityLoader));
+    this.db = entityLoader(modelNameArray);
 
+    var createRoutes = require('./lib/schema-to-routes'); 
+    this.routes = createRoutes(this.db);
+    //console.log(this.routes);
+    this.app.use(this.routes);
 
     this.app.use(express.static('public'));
 
@@ -54,7 +61,9 @@ App.prototype.stop = () => {
     this.app.stop();
 };
 
-var umbBackOffice = new App();
-umbBackOffice.run();
+// var umbBackOffice = new App();
+// umbBackOffice.run();
 
-module.exports = umbBackOffice;
+// module.exports = umbBackOffice;
+
+module.exports = new App();

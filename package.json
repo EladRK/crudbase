@@ -2,7 +2,7 @@
   "name": "crudbase",
   "version": "1.0.0",
   "description": "umbrela mvp",
-  "main": "app.js",
+  "main": "index.js",
   "dependencies": {
     "body-parser": "^1.15.0",
     "colors": "^1.1.2",
