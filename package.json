@@ -1,5 +1,5 @@
 {
-  "name": "umb-simple",
+  "name": "crudbase",
   "version": "1.0.0",
   "description": "umbrela mvp",
   "main": "index.js",
@@ -22,12 +22,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EladRK/umb-simple.git"
+    "url": "git+https://github.com/EladRK/crudbase.git"
   },
   "author": "Elad Katz",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/EladRK/umb-simple/issues"
+    "url": "https://github.com/EladRK/crudbase/issues"
   },
-  "homepage": "https://github.com/EladRK/umb-simple#readme"
+  "homepage": "https://github.com/EladRK/crudbase#readme"
 }

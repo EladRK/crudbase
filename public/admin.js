@@ -1,3 +1,6 @@
+/* global angular*/
+
+
 /**
  * Link to show
  *
@@ -53,7 +56,7 @@ myApp.directive('umbPublish', publishDirective);
 
 myApp.config(['NgAdminConfigurationProvider', function (nga) {
 
-  var baseApi = 'http://localhost:6100/api/v1/';
+  var baseApi = 'http://localhost:3000/api/v1/';
 
 
   var admin = nga.application('CRUD base Admin').baseApiUrl(baseApi);
@@ -61,7 +64,7 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
   //var legacyProductUri = "http://admin.qa02.corp.naturalint.com/api/bizms/v1/resources/"
   //var legacyProduct = nga.entity('products').baseApiUrl(legacyProductUri).identifier(nga.field('id'));
 
-  var legacyProduct = nga.entity('legacy_product').url(function (entityName, viewType, identifierValue, identifierName) {
+  var legacyProduct = nga.entity('legacy_product').url(function () { //entityName, viewType, identifierValue, identifierName) {
     return "http://admin.qa02.corp.naturalint.com/api/bizms/v1/resources/products";
   });
 
@@ -339,18 +342,3 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
   nga.configure(admin);
 }]);
 
-
-myApp.config(function (RestangularProvider) {
-  //RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response) {
-  //
-  //
-  //  return data;
-  //});
-  //RestangularProvider.addFullRequestInterceptor(function (element, operation, what, url, headers, params, httpConfig) {
-  //
-  //
-  //  return {params: params, element: element};
-  //});
-
-  //RestangularProvider.setDefaultHeaders({'Authorization': 'Token token="zCZS8LgNea70YXdHtJKpw3V0vB6ai9"'});
-});
