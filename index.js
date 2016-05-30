@@ -1,8 +1,9 @@
+"use strict";
 
 
 const index = {
-  app : require('./app.js')
-}
+  CrudbaseApp : require('./crudbase-app.js')
+};
 
 module.exports = index;
 

@@ -5,4 +5,4 @@ module.exports = {
   name: String,
   logoPath: String,
   bottomLine: String
-};;
+};
